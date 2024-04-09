@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продолжение регистрации</title>
+    <!-- Добавляем ссылку на favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 740px; /* Фиксированная ширина контейнера */
+            height: 334.88px; /* Фиксированная высота контейнера */
+        }
+        h1 {
+            color: #fff;
+        }
+        p {
+            color: #fff;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            width: 250px;
+            transition: box-shadow 0.3s;
+            text-align: center;
+            font-size: 16px;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Продолжение регистрации</h1>
+        <p>Пожалуйста, введите ваше имя, фамилию и дату рождения:</p>
+        <form id="userInfoForm">
+            <input type="text" id="firstNameInput" placeholder="Введите ваше имя" required><br>
+            <input type="text" id="lastNameInput" placeholder="Введите вашу фамилию" required><br>
+            <input type="text" id="ageInput" placeholder="ДД.ММ.ГГГГ" maxlength="10" required><br>
+            <button type="submit" class="button">Завершить регистрацию</button>
+        </form>
+    </div>
+
+    <script>
+        var userInfoForm = document.getElementById('userInfoForm');
+        var firstNameInput = document.getElementById('firstNameInput');
+        var lastNameInput = document.getElementById('lastNameInput');
+        var ageInput = document.getElementById('ageInput');
+
+        userInfoForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var firstName = firstNameInput.value.trim();
+            var lastName = lastNameInput.value.trim();
+            var age = ageInput.value.trim();
+
+            // Проверяем корректность введенной даты
+            if (isValidName(firstName) && isValidName(lastName) && isValidDate(age)) {
+                alert('Регистрация завершена успешно!\nИмя: ' + firstName + '\nФамилия: ' + lastName + '\nДата рождения: ' + age);
+                // Перенаправляем на видео Rick Astley - Never Gonna Give You Up
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            } else {
+                alert('Пожалуйста, введите корректные данные.');
+            }
+        });
+
+        function isValidName(name) {
+            return /^[\p{Lu}][\p{L} '-]+$/u.test(name);
+        }
+
+        function isValidDate(date) {
+            // Проверяем, что дата соответствует формату ДД.ММ.ГГГГ
+            var pattern = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
+            if (!pattern.test(date)) return false;
+            
+            // Проверяем, что день, месяц и год валидные
+            var parts = date.split('.');
+            var day = parseInt(parts[0]);
+            var month = parseInt(parts[1]);
+            var year = parseInt(parts[2]);
+            if (month < 1 || month > 12 || day < 1 || day > 31) return false;
+            
+            // Проверяем, что день не превышает максимальное число дней в месяце
+            var maxDay = new Date(year, month, 0).getDate();
+            if (day > maxDay) return false;
+            
+            // Проверяем, что год входит в диапазон от 1900 до 2100
+            if (year < 1900 || year > 2100) return false;
+            
+            // Проверяем, что год не является високосным
+            if (month == 2 && day == 29 && !((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)) return false;
+            
+            return true;
+        }
+    </script>
+</body>
+</html>

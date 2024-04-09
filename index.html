@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIK Конструктор цен</title>
+    <!-- Добавляем ссылку на favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 740px; /* Фиксированная ширина контейнера */
+            height: 334.88px; /* Фиксированная высота контейнера */
+        }
+        h1 {
+            color: #fff;
+        }
+        p {
+            color: #fff;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            width: 250px;
+            transition: box-shadow 0.3s;
+        }
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PIK Конструктор цен</h1>
+        <p>Добро пожаловать на PIK Конструктор цен! Мы предлагаем инновационные решения для расчета стоимости вашего проекта.</p>
+        <p>Пожалуйста, введите вашу почту и пароль для регистрации:</p>
+        <form id="userInfoForm">
+            <input type="email" id="emailInput" placeholder="Введите вашу почту" required style="width: 250px;"><br>
+            <input type="password" id="passwordInput" placeholder="Введите пароль" required><br>
+            <input type="password" id="confirmPasswordInput" placeholder="Подтвердите пароль" required><br>
+            <button type="submit" class="button">Продолжить</button>
+        </form>
+    </div>
+
+    <script>
+        var userInfoForm = document.getElementById('userInfoForm');
+        var emailInput = document.getElementById('emailInput');
+        var passwordInput = document.getElementById('passwordInput');
+        var confirmPasswordInput = document.getElementById('confirmPasswordInput');
+
+        userInfoForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var userEmail = emailInput.value.trim();
+            var userPassword = passwordInput.value;
+            var confirmPassword = confirmPasswordInput.value;
+
+            // Проверка введенных данных и перенаправление на следующую страницу
+            if (isValidEmail(userEmail) && isValidPassword(userPassword) && userPassword === confirmPassword) {
+                // Здесь можно выполнить отправку данных на сервер и перенаправление
+                // В данном примере просто перенаправляем на следующую страницу
+                window.location.href = "second_page.html";
+            } else {
+                alert('Пожалуйста, введите корректные данные.');
+            }
+        });
+
+        function isValidEmail(email) {
+            // Простейшая проверка на валидность email, можете заменить на более сложную
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidPassword(password) {
+            return /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{6,12}$/.test(password);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
