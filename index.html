@@ -75,7 +75,7 @@
         <p>Пожалуйста, введите вашу почту и пароль для регистрации:</p>
         <form id="userInfoForm">
             <input type="email" id="emailInput" placeholder="Введите вашу почту" required style="width: 250px;"><br>
-            <input type="password" id="passwordInput" placeholder="Введите пароль" required><br>
+            <input type="password" id="passwordInput" placeholder="Введите пароль" title="Пароль должен содержать не менее 8 символов, включая как минимум одну прописную букву (a-z), одну заглавную букву (A-Z), одну цифру (0-9), и один специальный символ (!@#$%^&*)." required><br>
             <input type="password" id="confirmPasswordInput" placeholder="Подтвердите пароль" required><br>
             <button type="submit" class="button">Продолжить</button>
         </form>
@@ -99,7 +99,15 @@
                 // В данном примере просто перенаправляем на следующую страницу
                 window.location.href = "second_page.html";
             } else {
-                alert('Пожалуйста, введите корректные данные.');
+                if (!isValidEmail(userEmail)) {
+                    alert('Пожалуйста, введите корректный email.');
+                } else if (!isValidPassword(userPassword)) {
+                    alert('Пароль должен содержать не менее 8 символов, включая как минимум одну прописную букву (a-z), одну заглавную букву (A-Z), одну цифру (0-9), и один специальный символ (!@#$%^&*).');
+                } else if (userPassword !== confirmPassword) {
+                    alert('Введенные пароли не совпадают.');
+                } else {
+                    alert('Пожалуйста, введите корректные данные.');
+                }
             }
         });
 
@@ -109,11 +117,12 @@
         }
 
         function isValidPassword(password) {
-            return /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{6,12}$/.test(password);
+            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/.test(password);
         }
     </script>
 </body>
 </html>
+
 
 
 
